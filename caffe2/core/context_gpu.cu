@@ -330,7 +330,7 @@ std::pair<void*, MemoryDeleter> CUDAContext::New(size_t nbytes) {
   }
   switch (g_cuda_memory_pool_type) {
   case CudaMemoryPoolType::NONE:
-    CUDA_ENFORCE(cudaMalloc(&ptr, nbytes));
+    CUDA_ENFORCE(cudaMallocManaged(&ptr, nbytes));
     if (FLAGS_caffe2_gpu_memory_tracking) {
       g_size_map[ptr] = nbytes;
       g_cuda_device_affiliation[ptr] = CaffeCudaGetDevice();
